@@ -1,0 +1,31 @@
+REGISTRO CONCURRENTE - FLASK + ASTRA DB DATA API (HTTPS)
+
+1. En el portal de Astra, entra a la base de datos y copia el API Endpoint
+   (sección Overview / Database Details, o Connection details).
+   Debe comenzar por https:// y contener .apps.astra.datastax.com
+   No utilices la dirección .db.astra.datastax.com del driver CQL.
+
+2. Copia .env.example a .env y rellena:
+   ASTRA_API_ENDPOINT=https://...
+   ASTRA_TOKEN=AstraCS:...
+   ASTRA_KEYSPACE=universidad
+
+3. Abre terminal en esta carpeta y ejecuta:
+   pip install -r requirements.txt
+   python app.py
+
+4. Visita http://127.0.0.1:5000. Ingresa un nombre y presiona Enviar.
+
+5. Verifica en la consola CQL:
+   SELECT * FROM universidad.usuarios;
+
+6. Si se publica en Render:
+   Build command: pip install -r requirements.txt
+   Start command: gunicorn app:app --workers 1 --threads 8 --timeout 120
+   Variables: ASTRA_API_ENDPOINT, ASTRA_TOKEN, ASTRA_KEYSPACE
+
+Notas:
+- Los datos se escriben en Cassandra en la nube, no en un archivo local.
+- No hace falta Secure Connect Bundle ZIP con la Data API.
+- No publiques el token en GitHub.
+- No se ha probado esta conexión contra tu cuenta; requiere tus credenciales.
